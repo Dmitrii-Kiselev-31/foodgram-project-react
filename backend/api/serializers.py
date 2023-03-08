@@ -144,9 +144,6 @@ class CreateRecipeSerializer(ModelSerializer):
     def validate_tags(self, value):
         if not value:
             raise ValidationError({'Выберите теги.'})
-        values_slug = [i for i in value]
-        if len(values_slug) != len(set(values_slug)):
-            raise ValidationError({'Теги повторяются.'})
         return value
 
     def validate_ingredients(self, value):
