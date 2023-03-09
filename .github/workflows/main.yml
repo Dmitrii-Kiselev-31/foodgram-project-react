@@ -25,15 +25,12 @@ jobs:
       run: |
         cd backend
         python3 -m flake8
+
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     needs: tests
     if:
-      contains('
-      refs/heads/master
-      refs/heads/main
-      ', github.ref)
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -63,11 +60,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
-    if:
-      contains('
-      refs/heads/master
-      refs/heads/main
-      ', github.ref)
     steps:
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
@@ -80,6 +72,7 @@ jobs:
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram-back:latest
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/foodgram-front:latest
             sudo docker-compose stop
+            sudo rm .env
             touch .env
             echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
             echo DB_NAME=${{ secrets.DB_NAME }} >> .env
@@ -92,6 +85,7 @@ jobs:
             sudo docker-compose exec -T backend python3 manage.py migrate
             sudo docker-compose exec -T backend python3 manage.py load_ingredients
             sudo docker-compose exec -T backend python3 manage.py collectstatic --no-input
+  
   send_message:
     runs-on: ubuntu-latest
     needs: deploy
@@ -101,4 +95,4 @@ jobs:
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: ${{ github.workflow }} - ошибок нет.
+        message: ${{ github.workflow }} - ошибок нет!!!
