@@ -1,5 +1,5 @@
 # Продуктовый помощник Foodgram
-![example workflow](https://github.com/Dmitrii-Kiselev-31/foodgram-project-react/actions/runs/4374919655)
+![example workflow](https://github.com/Dmitrii-Kiselev-31/foodgram-project-react/actions/foodgram_workflow.yml/badge.svg)
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat&logo=Python&logoColor=ffffff&color=043A6B)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/-Django-464646?style=flat&logo=Django&logoColor=ffffff&color=043A6B)](https://www.djangoproject.com/)
 [![Django REST Framework](https://img.shields.io/badge/-Django%20REST%20Framework-464646?style=flat&logo=Django%20REST%20Framework&logoColor=ffffff&color=043A6B)](https://www.django-rest-framework.org/)
