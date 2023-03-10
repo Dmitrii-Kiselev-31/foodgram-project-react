@@ -145,6 +145,11 @@ class CreateRecipeSerializer(ModelSerializer):
         if len(value) != len(set(value)):
             raise ValidationError({'Теги повторяются.'})
         return value
+    
+    def validate_cooking_time(self, cooking_time):
+        if int(cooking_time) < 1:
+            raise ValidationError('Время приготовления >= 1!')
+        return cooking_time
 
     def validate_ingredients(self, value):
         if not value:
